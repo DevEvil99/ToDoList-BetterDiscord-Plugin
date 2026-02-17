@@ -510,6 +510,11 @@ class ToDoList {
                                 padding: "5px"
                             }
                         },
+                        React.createElement("h4", {
+                            style: {
+                                color: "var(--text-default)"
+                            }
+                        }, "Task"),
                         React.createElement("input", {
                             value: text,
                             onChange: e => setText(e.target.value),
@@ -523,6 +528,11 @@ class ToDoList {
                                 color: "var(--text-default)"
                             }
                         }),
+                        React.createElement("h4", {
+                            style: {
+                                color: "var(--text-default)"
+                            }
+                        }, "Due Date"),
                         React.createElement("input", {
                             type: "datetime-local",
                             value: due,
@@ -537,6 +547,31 @@ class ToDoList {
                                 color: "var(--text-default)"
                             }
                         }),
+                        React.createElement("h4", {
+                            style: {
+                                color: "var(--text-default)"
+                            }
+                        }, "Notes"),
+                        React.createElement("textarea", {
+                            value: notes,
+                            onChange: e => setNotes(e.target.value),
+                            style: {
+                                background: "var(--background-base-lowest)",
+                                outline: "none",
+                                border: "none",
+                                padding: "10px",
+                                borderRadius: "10px",
+                                width: "100%",
+                                height: "80px",
+                                color: "var(--text-default)",
+                                resize: "vertical"
+                            }
+                        }),
+                        React.createElement("h4", {
+                            style: {
+                                color: "var(--text-default)"
+                            }
+                        }, "Priority"),
                         React.createElement("select", {
                                 value: priority,
                                 onChange: e => setPriority(e.target.value),
@@ -559,22 +594,7 @@ class ToDoList {
                             React.createElement("option", {
                                 value: "high"
                             }, "High")
-                        ),
-                        React.createElement("textarea", {
-                            value: notes,
-                            onChange: e => setNotes(e.target.value),
-                            style: {
-                                background: "var(--background-base-lowest)",
-                                outline: "none",
-                                border: "none",
-                                padding: "10px",
-                                borderRadius: "10px",
-                                width: "100%",
-                                height: "80px",
-                                color: "var(--text-default)",
-                                resize: "vertical"
-                            }
-                        })
+                        )
                     );
                 };
 
