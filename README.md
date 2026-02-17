@@ -4,7 +4,7 @@ ToDoList lets you create, manage, and track tasks with priorities, due dates, no
 💡 If you find any bugs or have suggestions, please report them on my [Discord server](https://dsc.gg/devevil). 💡
 
 ## Screenshots
-| Creation Modal                  | Inbox View                      | Settings Panel                  |
+| To-Do Modal                  | Inbox View                      | Settings Panel                  |
 |---------------------------------|---------------------------------|---------------------------------|
 | ![Create](https://github.com/user-attachments/assets/ff2942f2-4b65-4679-9acc-073190bb66cd) | ![Inbox](https://github.com/user-attachments/assets/050b460c-3259-48f0-afa9-eb1037cb516a) | ![Settings](https://github.com/user-attachments/assets/82bf72ce-c877-4210-8f8d-bc2aa1549e3d) |
 
