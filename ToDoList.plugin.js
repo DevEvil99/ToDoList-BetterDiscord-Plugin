@@ -218,89 +218,49 @@ class ToDoList {
             React
         } = BdApi;
 
-        const ModalContent = () => React.createElement("div", {
-                style: {
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "15px",
-                    padding: "5px"
-                }
-            },
-            React.createElement("div", null,
-                React.createElement("h4", {
+        const todoForm = {
+            current: {
+                text: "",
+                due: "",
+                priority: "low",
+                notes: ""
+            }
+        };
+
+        const ModalContent = () => {
+            const [text, setText] = React.useState("");
+            const [due, setDue] = React.useState("");
+            const [priority, setPriority] = React.useState("low");
+            const [notes, setNotes] = React.useState("");
+
+            React.useEffect(() => {
+                todoForm.current = {
+                    text,
+                    due,
+                    priority,
+                    notes
+                };
+            }, [text, due, priority, notes]);
+
+            return React.createElement("div", {
                     style: {
-                        color: "var(--text-default)",
-                        marginBottom: "5px"
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "15px",
+                        padding: "5px"
                     }
-                }, "Task"),
-                React.createElement("input", {
-                    id: "todoText",
-                    type: "text",
-                    placeholder: "What needs to be done?",
-                    style: {
-                        background: "var(--background-base-lowest)",
-                        outline: "none",
-                        border: "none",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        width: "100%",
-                        color: "var(--text-default)"
-                    }
-                })
-            ),
-            React.createElement("div", null,
-                React.createElement("h4", {
-                    style: {
-                        color: "var(--text-default)",
-                        marginBottom: "5px"
-                    }
-                }, "Due Date (Optional)"),
-                React.createElement("input", {
-                    id: "todoDue",
-                    type: "datetime-local",
-                    style: {
-                        background: "var(--background-base-lowest)",
-                        outline: "none",
-                        border: "none",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        width: "100%",
-                        color: "var(--text-default)"
-                    }
-                })
-            ),
-            React.createElement("div", null,
-                React.createElement("h4", {
-                    style: {
-                        color: "var(--text-default)",
-                        marginBottom: "5px"
-                    }
-                }, "Notes (Optional)"),
-                React.createElement("textarea", {
-                    id: "todoNotes",
-                    placeholder: "Any extra details...",
-                    style: {
-                        background: "var(--background-base-lowest)",
-                        outline: "none",
-                        border: "none",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        width: "100%",
-                        height: "80px",
-                        color: "var(--text-default)",
-                        resize: "vertical"
-                    }
-                })
-            ),
-            React.createElement("div", null,
-                React.createElement("h4", {
-                    style: {
-                        color: "var(--text-default)",
-                        marginBottom: "5px"
-                    }
-                }, "Priority"),
-                React.createElement("select", {
-                        id: "todoPriority",
+                },
+                React.createElement("div", null,
+                    React.createElement("h4", {
+                        style: {
+                            color: "var(--text-default)",
+                            marginBottom: "5px"
+                        }
+                    }, "Task"),
+                    React.createElement("input", {
+                        value: text,
+                        onChange: e => setText(e.target.value),
+                        placeholder: "What needs to be done?",
                         style: {
                             background: "var(--background-base-lowest)",
                             outline: "none",
@@ -310,75 +270,143 @@ class ToDoList {
                             width: "100%",
                             color: "var(--text-default)"
                         }
-                    },
-                    React.createElement("option", {
-                        value: "low",
-                        selected: true
-                    }, "Low"),
-                    React.createElement("option", {
-                        value: "medium"
-                    }, "Medium"),
-                    React.createElement("option", {
-                        value: "high"
-                    }, "High")
-                )
-            ),
-            React.createElement("button", {
-                    style: {
-                        background: "var(--background-base-lowest)",
-                        border: "none",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        color: "var(--text-default)",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        width: "fit-content",
-                        gap: "8px",
-                        justifyContent: "center"
-                    },
-                    onClick: () => this.showToDoInbox()
-                },
-                React.createElement("svg", {
-                        width: "16",
-                        height: "16",
-                        fill: "currentColor",
-                        viewBox: "0 0 24 24"
-                    },
-                    React.createElement("path", {
-                        d: "M5.024 3.783A1 1 0 0 1 6 3h12a1 1 0 0 1 .976.783L20.802 12h-4.244a1.99 1.99 0 0 0-1.824 1.205 2.978 2.978 0 0 1-5.468 0A1.991 1.991 0 0 0 7.442 12H3.198l1.826-8.217ZM3 14v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-4.43a4.978 4.978 0 0 1-9.14 0H3Z"
                     })
                 ),
-                "View All To-Dos"
-            )
-        );
+                React.createElement("div", null,
+                    React.createElement("h4", {
+                        style: {
+                            color: "var(--text-default)",
+                            marginBottom: "5px"
+                        }
+                    }, "Due Date (Optional)"),
+                    React.createElement("input", {
+                        type: "datetime-local",
+                        value: due,
+                        onChange: e => setDue(e.target.value),
+                        style: {
+                            background: "var(--background-base-lowest)",
+                            outline: "none",
+                            border: "none",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            width: "100%",
+                            color: "var(--text-default)"
+                        }
+                    })
+                ),
+                React.createElement("div", null,
+                    React.createElement("h4", {
+                        style: {
+                            color: "var(--text-default)",
+                            marginBottom: "5px"
+                        }
+                    }, "Notes (Optional)"),
+                    React.createElement("textarea", {
+                        value: notes,
+                        onChange: e => setNotes(e.target.value),
+                        placeholder: "Any extra details...",
+                        style: {
+                            background: "var(--background-base-lowest)",
+                            outline: "none",
+                            border: "none",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            width: "100%",
+                            height: "80px",
+                            color: "var(--text-default)",
+                            resize: "vertical"
+                        }
+                    })
+                ),
+                React.createElement("div", null,
+                    React.createElement("h4", {
+                        style: {
+                            color: "var(--text-default)",
+                            marginBottom: "5px"
+                        }
+                    }, "Priority"),
+                    React.createElement("select", {
+                            value: priority,
+                            onChange: e => setPriority(e.target.value),
+                            style: {
+                                background: "var(--background-base-lowest)",
+                                outline: "none",
+                                border: "none",
+                                padding: "10px",
+                                borderRadius: "10px",
+                                width: "100%",
+                                color: "var(--text-default)"
+                            }
+                        },
+                        React.createElement("option", {
+                            value: "low"
+                        }, "Low"),
+                        React.createElement("option", {
+                            value: "medium"
+                        }, "Medium"),
+                        React.createElement("option", {
+                            value: "high"
+                        }, "High")
+                    )
+                ),
+                React.createElement("button", {
+                        style: {
+                            background: "var(--background-base-lowest)",
+                            border: "none",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            color: "var(--text-default)",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            width: "fit-content",
+                            gap: "8px"
+                        },
+                        onClick: () => this.showToDoInbox()
+                    },
+                    React.createElement("svg", {
+                            width: "16",
+                            height: "16",
+                            fill: "currentColor",
+                            viewBox: "0 0 24 24"
+                        },
+                        React.createElement("path", {
+                            d: "M5.024 3.783A1 1 0 0 1 6 3h12a1 1 0 0 1 .976.783L20.802 12h-4.244a1.99 1.99 0 0 0-1.824 1.205 2.978 2.978 0 0 1-5.468 0A1.991 1.991 0 0 0 7.442 12H3.198l1.826-8.217ZM3 14v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-4.43a4.978 4.978 0 0 1-9.14 0H3Z"
+                        })
+                    ),
+                    "View All To-Dos"
+                )
+            );
+        };
 
         UI.showConfirmationModal(
             "New To-Do",
             React.createElement(ModalContent), {
                 confirmText: "Add To-Do",
                 onConfirm: () => {
-                    const text = document.getElementById("todoText").value.trim();
-                    const dueStr = document.getElementById("todoDue").value;
-                    const priority = document.getElementById("todoPriority").value;
-                    const notes = document.getElementById("todoNotes").value.trim();
+                    const {
+                        text,
+                        due,
+                        priority,
+                        notes
+                    } = todoForm.current;
 
-                    if (!text) {
+                    if (!text.trim()) {
                         UI.showToast("Task text is required!", {
                             type: "error"
                         });
                         return;
                     }
 
-                    const dueDate = dueStr ? new Date(dueStr).getTime() : null;
+                    const dueDate = due ? new Date(due).getTime() : null;
 
                     this.todos.unshift({
                         id: Date.now(),
-                        text,
+                        text: text.trim(),
                         completed: false,
                         dueDate,
                         priority,
-                        notes,
+                        notes: notes.trim(),
                         createdAt: Date.now()
                     });
 
@@ -411,43 +439,35 @@ class ToDoList {
                     return matchesSearch;
                 })
                 .sort((a, b) => {
-                    if (sortBy === "dueDate") {
-                        if (!a.dueDate) return 1;
-                        if (!b.dueDate) return -1;
-                        return a.dueDate - b.dueDate;
-                    }
+                    if (sortBy === "dueDate") return (!a.dueDate ? 1 : !b.dueDate ? -1 : a.dueDate - b.dueDate);
                     if (sortBy === "priority") {
-                        const prioOrder = {
+                        const order = {
                             high: 3,
                             medium: 2,
                             low: 1
                         };
-                        return prioOrder[b.priority] - prioOrder[a.priority];
+                        return order[b.priority] - order[a.priority];
                     }
                     return b.createdAt - a.createdAt;
                 });
 
-            const updateLocalAndGlobal = (newTodos) => {
+            const update = (newTodos) => {
                 this.todos = [...newTodos];
                 this.saveTodos();
                 setLocalTodos([...newTodos]);
             };
 
-            const toggleComplete = (id) => {
-                const newTodos = localTodos.map(t => t.id === id ? {
-                    ...t,
-                    completed: !t.completed
-                } : t);
-                updateLocalAndGlobal(newTodos);
-            };
+            const toggleComplete = (id) => update(localTodos.map(t => t.id === id ? {
+                ...t,
+                completed: !t.completed
+            } : t));
 
             const deleteTodo = (id) => {
                 UI.showConfirmationModal("Delete To-Do", "Are you sure?", {
                     confirmText: "Delete",
                     danger: true,
                     onConfirm: () => {
-                        const newTodos = localTodos.filter(t => t.id !== id);
-                        updateLocalAndGlobal(newTodos);
+                        update(localTodos.filter(t => t.id !== id));
                         UI.showToast("To-Do Deleted", {
                             type: "success"
                         });
@@ -458,47 +478,41 @@ class ToDoList {
             const openEdit = (todo) => {
                 if (todo.completed) return;
 
-                const {
-                    React
-                } = BdApi;
-                const EditContent = () => React.createElement("div", {
-                        style: {
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "15px",
-                            padding: "5px"
-                        }
-                    },
-                    React.createElement("input", {
-                        id: "editText",
-                        defaultValue: todo.text,
-                        style: {
-                            background: "var(--background-base-lowest)",
-                            outline: "none",
-                            border: "none",
-                            padding: "10px",
-                            borderRadius: "10px",
-                            width: "100%",
-                            color: "var(--text-default)"
-                        }
-                    }),
-                    React.createElement("input", {
-                        id: "editDue",
-                        type: "datetime-local",
-                        defaultValue: todo.dueDate ? new Date(todo.dueDate).toISOString().slice(0, 16) : "",
-                        style: {
-                            background: "var(--background-base-lowest)",
-                            outline: "none",
-                            border: "none",
-                            padding: "10px",
-                            borderRadius: "10px",
-                            width: "100%",
-                            color: "var(--text-default)"
-                        }
-                    }),
-                    React.createElement("select", {
-                            id: "editPriority",
-                            defaultValue: todo.priority,
+                const editForm = {
+                    current: {
+                        text: todo.text,
+                        due: todo.dueDate ? new Date(todo.dueDate).toISOString().slice(0, 16) : "",
+                        priority: todo.priority,
+                        notes: todo.notes || ""
+                    }
+                };
+
+                const EditContent = () => {
+                    const [text, setText] = React.useState(todo.text);
+                    const [due, setDue] = React.useState(editForm.current.due);
+                    const [priority, setPriority] = React.useState(todo.priority);
+                    const [notes, setNotes] = React.useState(todo.notes || "");
+
+                    React.useEffect(() => {
+                        editForm.current = {
+                            text,
+                            due,
+                            priority,
+                            notes
+                        };
+                    }, [text, due, priority, notes]);
+
+                    return React.createElement("div", {
+                            style: {
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "15px",
+                                padding: "5px"
+                            }
+                        },
+                        React.createElement("input", {
+                            value: text,
+                            onChange: e => setText(e.target.value),
                             style: {
                                 background: "var(--background-base-lowest)",
                                 outline: "none",
@@ -508,53 +522,82 @@ class ToDoList {
                                 width: "100%",
                                 color: "var(--text-default)"
                             }
-                        },
-                        React.createElement("option", {
-                            value: "low"
-                        }, "Low"),
-                        React.createElement("option", {
-                            value: "medium"
-                        }, "Medium"),
-                        React.createElement("option", {
-                            value: "high"
-                        }, "High")
-                    ),
-                    React.createElement("textarea", {
-                        id: "editNotes",
-                        defaultValue: todo.notes || "",
-                        style: {
-                            background: "var(--background-base-lowest)",
-                            outline: "none",
-                            border: "none",
-                            padding: "10px",
-                            borderRadius: "10px",
-                            width: "100%",
-                            height: "80px",
-                            color: "var(--text-default)",
-                            resize: "vertical"
-                        }
-                    })
-                );
+                        }),
+                        React.createElement("input", {
+                            type: "datetime-local",
+                            value: due,
+                            onChange: e => setDue(e.target.value),
+                            style: {
+                                background: "var(--background-base-lowest)",
+                                outline: "none",
+                                border: "none",
+                                padding: "10px",
+                                borderRadius: "10px",
+                                width: "100%",
+                                color: "var(--text-default)"
+                            }
+                        }),
+                        React.createElement("select", {
+                                value: priority,
+                                onChange: e => setPriority(e.target.value),
+                                style: {
+                                    background: "var(--background-base-lowest)",
+                                    outline: "none",
+                                    border: "none",
+                                    padding: "10px",
+                                    borderRadius: "10px",
+                                    width: "100%",
+                                    color: "var(--text-default)"
+                                }
+                            },
+                            React.createElement("option", {
+                                value: "low"
+                            }, "Low"),
+                            React.createElement("option", {
+                                value: "medium"
+                            }, "Medium"),
+                            React.createElement("option", {
+                                value: "high"
+                            }, "High")
+                        ),
+                        React.createElement("textarea", {
+                            value: notes,
+                            onChange: e => setNotes(e.target.value),
+                            style: {
+                                background: "var(--background-base-lowest)",
+                                outline: "none",
+                                border: "none",
+                                padding: "10px",
+                                borderRadius: "10px",
+                                width: "100%",
+                                height: "80px",
+                                color: "var(--text-default)",
+                                resize: "vertical"
+                            }
+                        })
+                    );
+                };
 
                 UI.showConfirmationModal("Edit To-Do", React.createElement(EditContent), {
                     confirmText: "Save Changes",
                     onConfirm: () => {
-                        const newText = document.getElementById("editText").value.trim();
-                        const newDue = document.getElementById("editDue").value;
-                        const newPrio = document.getElementById("editPriority").value;
-                        const newNotes = document.getElementById("editNotes").value.trim();
-
-                        if (!newText) return;
+                        const {
+                            text,
+                            due,
+                            priority,
+                            notes
+                        } = editForm.current;
+                        if (!text.trim()) return;
 
                         const newTodos = localTodos.map(t => t.id === todo.id ? {
                             ...t,
-                            text: newText,
-                            dueDate: newDue ? new Date(newDue).getTime() : null,
-                            priority: newPrio,
-                            notes: newNotes
+                            text: text.trim(),
+                            dueDate: due ? new Date(due).getTime() : null,
+                            priority,
+                            notes: notes.trim()
                         } : t);
 
-                        updateLocalAndGlobal(newTodos);
+                        update(newTodos);
                         UI.showToast("To-Do Updated!", {
                             type: "success"
                         });
